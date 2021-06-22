@@ -1,23 +1,34 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 
 import s from './Button.css';
 
+interface Props {
+	color: unknown,
+	size: unknown,
+	children: unknown
+}
+
 /**
  * The only true button.
  */
-export default function Button({ color, size, children }) {
+const Button: React.FC<Props> = ({ color, size, children }: Props) => {
 	let styles = {
 		color,
 		fontSize: Button.sizes[size],
 	};
+
+	/** Some kind of silly mistake */
+	// const =
 
 	return (
 		<button className={s.root} style={styles}>
 			{children}
 		</button>
 	);
-}
+};
+
+export default Button;
 
 Button.propTypes = {
 	/**
