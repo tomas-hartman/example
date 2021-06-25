@@ -4,18 +4,32 @@ import PropTypes from 'prop-types';
 import s from './Button.css';
 
 interface Props {
-	color: unknown,
-	size: unknown,
-	children: unknown
+	color: string,
+	size: 'small' | 'normal' | 'large',
+	children: React.ReactElement | React.ReactElement[],
+	sizes: {
+		[key: string]: string,
+	}
 }
 
 /**
  * The only true button.
  */
-const Button: React.FC<Props> = ({ color, size, children }: Props) => {
+const Button: React.FC<Props> = (props: Props) => {
+	const {
+		color = '#333',
+		size = 'normal',
+		children,
+		sizes = {
+			small: '10px',
+			normal: '14px',
+			large: '18px',
+		}
+	} = props;
+
 	let styles = {
 		color,
-		fontSize: Button.sizes[size],
+		fontSize: sizes[size],
 	};
 
 	/** Some kind of silly mistake */
@@ -29,21 +43,3 @@ const Button: React.FC<Props> = ({ color, size, children }: Props) => {
 };
 
 export default Button;
-
-Button.propTypes = {
-	/**
-	 * Button label.
-	 */
-	children: PropTypes.string.isRequired,
-	color: PropTypes.string,
-	size: PropTypes.oneOf(['small', 'normal', 'large']),
-};
-Button.defaultProps = {
-	color: '#333',
-	size: 'normal',
-};
-Button.sizes = {
-	small: '10px',
-	normal: '14px',
-	large: '18px',
-};
